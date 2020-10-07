@@ -1,7 +1,7 @@
 .sidebarOption {
   display: flex;
   align-items: center;
-  font-size: 12px;
+  font-size: 10px;
   padding-left: 2px;
   cursor: pointer;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import CreateIcon from "@material-ui/icons/Create";
@@ -14,17 +14,21 @@ import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AddIcon from "@material-ui/icons/Add";
 import db from "./firebase";
+import { useStateValue } from "./StateProvider";
 
 function Sidebar() {
   const [channels, setChannels] = useState([]);
+  const [{ user }] = useStateValue();
 
   useEffect(() => {
-    db.collection("rooms").onSnapshot(snapshot => (
-     setChannels(snapshot.docs.map(doc =>(
-       id: doc.id,
-       
-     ))) 
-    ))
+    db.collection("rooms").onSnapshot((snapshot) =>
+      setChannels(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          name: doc.data().name,
+        }))
+      )
+    );
   }, []);
 
   return (
@@ -34,7 +38,7 @@ function Sidebar() {
           <h2>DxV Slack Clone</h2>
           <h3>
             <FiberManualRecordIcon />
-            DixVill
+            {user?.displayName}
           </h3>
         </div>
         <CreateIcon />
@@ -52,6 +56,9 @@ function Sidebar() {
       <hr />
       <SidebarOption Icon={AddIcon} addChannelOption title="Add Channel" />
       {/* connect to db and list all channels */}
+      {channels.map((channel) => (
+        <SidebarOption key={channel.id} title={channel.name} id={channel.id} />
+      ))}
     </div>
   );
 }

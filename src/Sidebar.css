@@ -1,8 +1,9 @@
 .sidebar {
   color: white;
+  flex: 0.4;
   background-color: var(--slack-color);
   border-top: 1px solid #49274b;
-  max-width: 260px;
+  max-width: 300px;
 }
 
 .sidebar > hr {
@@ -23,7 +24,7 @@
 }
 
 .sidebar__info > h2 {
-  font-size: 15px;
+  font-size: 10px;
   font-weight: 900;
   margin-bottom: 5px;
 }
@@ -31,7 +32,7 @@
 .sidebar__info > h3 {
   display: flex;
   align-items: center;
-  font-size: 13px;
+  font-size: 9px;
   font-weight: 400;
 }
 
